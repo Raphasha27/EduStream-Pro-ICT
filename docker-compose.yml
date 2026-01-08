@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - analytics
+      - statistics
+
+  analytics:
+    build: ./services/analytics
+    image: python:3.9-slim
+    command: >
+      sh -c "pip install fastapi uvicorn pydantic && python main.py"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/analytics:/app
+    working_dir: /app
+
+  statistics:
+    image: rocker/r-ver:4.1.0
+    ports:
+      - "8001:8001"
+    command: >
+      Rscript -e 'install.packages("plumber"); library(plumber); pr <- plumb("/app/report.R"); pr$run(host="0.0.0.0", port=8001)'
+    volumes:
+      - ./services/statistics:/app

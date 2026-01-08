@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+.venv/
+env/
+__pycache__/
+*.Rproj.user
+.Rhistory
+.RData
+
+# Build outputs
+.next/
+dist/
+build/
+*.pyc
+
+# Environment variables
+.env
+.env.local
+
+# System
+.DS_Store
+Thumbs.db
