@@ -22,7 +22,9 @@ import {
   Terminal,
   MessageSquare,
   Users,
-  Shield
+  Shield,
+  Menu,
+  X
 } from 'lucide-react';
 
 const SidebarItem = ({ icon: Icon, label, active, onClick, hasBadge }) => (
@@ -88,7 +90,7 @@ const App = () => {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px' }}
         >
-          {isMobileMenuOpen ? <XCircle size={24} /> : <Search size={24} />} {/* Search as placeholder for Menu */}
+          {isMobileMenuOpen ? <X size={24} color="var(--color-academic-gold)" /> : <Menu size={24} color="var(--color-academic-gold)" />}
         </button>
       </div>
 
