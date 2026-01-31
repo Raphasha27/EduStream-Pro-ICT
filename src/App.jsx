@@ -234,7 +234,7 @@ const App = () => {
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Overview of student enrollment and institutional metrics for Nexus Global.</p>
             </div>
 
-            <div className="grid-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '40px' }}>
+            <div className="grid-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '32px' }}>
               {stats.map((stat, i) => (
                 <div key={i} className="card" style={{ padding: '24px', margin: 0 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
@@ -246,6 +246,15 @@ const App = () => {
                   <div style={{ fontSize: '13px', color: 'var(--color-fg-muted)', fontWeight: 500 }}>{stat.label}</div>
                 </div>
               ))}
+            </div>
+
+            <div className="card" style={{ background: 'var(--color-academic-navy)', color: 'white', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+              <div>
+                <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-academic-gold)', textTransform: 'uppercase', marginBottom: '4px' }}>NEXT LECTURE IN 45 MINS</div>
+                <div style={{ fontSize: '20px', fontWeight: 800 }}>Advanced Cloud Architecture (CSC301)</div>
+                <div style={{ fontSize: '14px', color: '#94a3b8' }}>Hall B-102 • Dr. S. Mandela</div>
+              </div>
+              <button className="btn btn-primary" style={{ background: 'white', color: 'var(--color-academic-navy)', border: 'none' }}>View Joining Link</button>
             </div>
 
             <section style={{ marginBottom: '40px' }}>
@@ -308,7 +317,7 @@ const App = () => {
               <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Fees Tracking</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Real-time tuition balance monitoring and financial status.</p>
             </div>
-            <div className="card" style={{ padding: '32px', textAlign: 'center' }}>
+            <div className="card" style={{ padding: '32px', textAlign: 'center', marginBottom: '32px' }}>
               <div style={{ fontSize: '48px', fontWeight: 800, color: 'var(--color-academic-gold)', marginBottom: '8px' }}>R14,250</div>
               <div style={{ color: 'var(--color-fg-muted)', fontWeight: 600 }}>Current Outstanding Balance</div>
               <div style={{ marginTop: '24px', display: 'flex', gap: '12px', justifyContent: 'center' }}>
@@ -316,6 +325,47 @@ const App = () => {
                 <button className="btn">Download Statement</button>
               </div>
             </div>
+
+            <section>
+              <h3 className="section-title">Transaction History</h3>
+              <div className="card">
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                  <thead>
+                    <tr style={{ background: 'var(--color-canvas-subtle)', borderBottom: '1px solid var(--color-border-default)' }}>
+                      <th style={{ padding: '16px', fontSize: '12px', color: 'var(--color-fg-muted)', textTransform: 'uppercase' }}>Date</th>
+                      <th style={{ padding: '16px', fontSize: '12px', color: 'var(--color-fg-muted)', textTransform: 'uppercase' }}>Description</th>
+                      <th style={{ padding: '16px', fontSize: '12px', color: 'var(--color-fg-muted)', textTransform: 'uppercase' }}>Amount</th>
+                      <th style={{ padding: '16px', fontSize: '12px', color: 'var(--color-fg-muted)', textTransform: 'uppercase' }}>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { date: '2026-01-15', desc: 'Semester 1 Tuition Fee', amount: 'R25,000', status: 'Invoiced' },
+                      { date: '2026-01-20', desc: 'Scholarship Award', amount: '-R10,750', status: 'Applied' },
+                      { date: '2026-01-25', desc: 'Registration Fee', amount: 'R1,250', status: 'Paid' },
+                    ].map((tx, i) => (
+                      <tr key={i} style={{ borderBottom: '1px solid var(--color-border-muted)' }}>
+                        <td style={{ padding: '16px', fontSize: '14px' }}>{tx.date}</td>
+                        <td style={{ padding: '16px', fontSize: '14px', fontWeight: 600 }}>{tx.desc}</td>
+                        <td style={{ padding: '16px', fontSize: '14px' }}>{tx.amount}</td>
+                        <td style={{ padding: '16px' }}>
+                          <span style={{ 
+                            padding: '4px 10px', 
+                            borderRadius: '20px', 
+                            fontSize: '11px', 
+                            fontWeight: 700,
+                            background: tx.status === 'Paid' ? '#dcfce7' : tx.status === 'Applied' ? '#dbeafe' : '#f3f4f6',
+                            color: tx.status === 'Paid' ? '#166534' : tx.status === 'Applied' ? '#1e40af' : '#4b5563'
+                          }}>
+                            {tx.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
           </>
         )}
 
@@ -414,8 +464,128 @@ const App = () => {
           </>
         )}
 
-        {/* Fallback for other pages */}
-        {!['dashboard', 'fees', 'predictor', 'skills', 'governance', 'international'].includes(activePage) && (
+        {activePage === 'bookings' && (
+          <>
+            <div style={{ marginBottom: '40px' }}>
+              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Lab Bookings</h1>
+              <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Reserve workstation time in specialized institutional ICT labs.</p>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '32px' }}>
+              <div className="card" style={{ padding: '24px' }}>
+                <h3 className="section-title">Select Laboratory</h3>
+                {['High-Performance Lab 1', 'Cyber Security Cell', 'AI Research Lab'].map((lab, i) => (
+                  <div key={i} style={{ 
+                    padding: '16px', 
+                    borderRadius: '8px', 
+                    border: '1px solid var(--color-border-default)', 
+                    marginBottom: '12px',
+                    cursor: 'pointer',
+                    background: i === 0 ? 'var(--color-canvas-subtle)' : 'white',
+                    borderColor: i === 0 ? 'var(--color-academic-gold)' : 'var(--color-border-default)'
+                  }}>
+                    <div style={{ fontWeight: 700 }}>{lab}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)' }}>{10 - i * 2} workstations available</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card" style={{ padding: '24px' }}>
+                <h3 className="section-title">Available Slots: Today</h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                  {['09:00 - 11:00', '11:00 - 13:00', '14:00 - 16:00', '16:00 - 18:00'].map((slot, i) => (
+                    <button key={i} className={`btn ${i === 1 ? 'btn-primary' : ''}`} style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <span style={{ fontSize: '14px', fontWeight: 700 }}>{slot}</span>
+                      <span style={{ fontSize: '11px', opacity: 0.8 }}>{i % 2 === 0 ? 'Low Demand' : 'High Demand'}</span>
+                    </button>
+                  ))}
+                </div>
+                <button className="btn btn-primary" style={{ width: '100%', marginTop: '32px', height: '48px' }}>Confirm Reservation</button>
+              </div>
+            </div>
+          </>
+        )}
+
+        {activePage === 'navigator' && (
+          <>
+            <div style={{ marginBottom: '40px' }}>
+              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Campus Navigator</h1>
+              <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Visual mapping of lectures halls, high-performance labs, and administrative blocks.</p>
+            </div>
+            <div className="card" style={{ padding: '0', overflow: 'hidden', position: 'relative', height: '500px', background: '#f8fafc' }}>
+              <div style={{ padding: '24px', position: 'absolute', top: 0, left: 0, zIndex: 10, background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(4px)', borderRadius: '0 0 12px 0', borderBottom: '1px solid var(--color-border-muted)', borderRight: '1px solid var(--color-border-muted)' }}>
+                <div style={{ fontWeight: 800, color: 'var(--color-academic-gold)' }}>MAIN CAMPUS - ZONE A</div>
+                <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)' }}>3 Active Sessions in Lab 4</div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridTemplateRows: 'repeat(4, 1fr)', height: '100%', gap: '1px', background: '#e2e8f0' }}>
+                {[...Array(16)].map((_, i) => (
+                  <div key={i} style={{ 
+                    background: i === 5 ? 'var(--color-academic-gold)' : i === 2 || i === 10 ? '#334155' : 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'transform 0.2s',
+                    cursor: 'pointer',
+                    position: 'relative'
+                  }} className="map-tile">
+                    {i === 5 && <MapPin color="white" size={24} />}
+                    <span style={{ fontSize: '10px', color: i === 5 ? 'white' : '#94a3b8', position: 'absolute', bottom: '8px' }}>
+                      {i === 2 ? 'Admin' : i === 5 ? 'You' : i === 10 ? 'ICT Lab' : `Block ${i}`}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {activePage === 'international' && (
+          <>
+            <div style={{ marginBottom: '40px' }}>
+              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>International Research</h1>
+              <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Worldwide academic partnerships and cross-border innovation in ICT.</p>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+              {[
+                { country: 'UK', uni: 'Oxford ICT Center', focus: 'Quantum Computing' },
+                { country: 'USA', uni: 'MIT Media Lab', focus: 'Ethical AI' },
+                { country: 'RSA', uni: 'Nexus Cape Town', focus: '5G Infrastructure' },
+                { country: 'GER', uni: 'Berlin Tech Institute', focus: 'Automotive IoT' },
+              ].map((p, i) => (
+                <div key={i} className="card" style={{ padding: '24px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                    <div style={{ width: '40px', height: '40px', background: 'var(--color-academic-gold)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800 }}>
+                      {p.country}
+                    </div>
+                    <div style={{ fontWeight: 700 }}>{p.uni}</div>
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-academic-gold)', fontWeight: 800, textTransform: 'uppercase', marginBottom: '8px' }}>CORE RESEARCH</div>
+                  <div style={{ fontSize: '15px', fontWeight: 600 }}>{p.focus}</div>
+                  <button className="btn" style={{ width: '100%', marginTop: '20px' }}>View Publication</button>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {activePage === 'console' && (
+          <>
+            <div style={{ marginBottom: '40px' }}>
+              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>ICT Console</h1>
+              <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Direct institutional command interface for advanced registry queries.</p>
+            </div>
+            <div style={{ background: '#0d1117', borderRadius: '12px', padding: '20px', fontFamily: '"Fira Code", monospace', color: '#3fb950', height: '400px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)', overflowY: 'auto' }}>
+              <div style={{ color: '#8b949e', marginBottom: '8px' }}>// Nexus Global Institutional OS [Version 10.0.22621]</div>
+              <div style={{ marginBottom: '16px' }}>C:\Students\Governance&gt; <span style={{ color: 'white' }}>nexus-cli --status</span></div>
+              <div style={{ color: 'var(--color-academic-gold)', marginBottom: '4px' }}>[SUCCESS] Security protocols initialized.</div>
+              <div style={{ color: 'var(--color-academic-gold)', marginBottom: '12px' }}>[INFO] 4,281 active nodes detected in campus cloud.</div>
+              <div style={{ marginBottom: '16px' }}>C:\Students\Governance&gt; <span style={{ borderRight: '8px solid #3fb950', animation: 'blink 1s infinite' }}>_</span></div>
+            </div>
+            <style>{`
+              @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+            `}</style>
+          </>
+        )}
+
+        {!['dashboard', 'fees', 'predictor', 'skills', 'bookings', 'navigator', 'console', 'international'].includes(activePage) && (
           <div style={{ textAlign: 'center', marginTop: '100px' }}>
             <div style={{ padding: '24px', background: '#fef3c7', display: 'inline-block', borderRadius: '50%', color: '#b45309', marginBottom: '16px' }}>
               <Terminal size={48} />
