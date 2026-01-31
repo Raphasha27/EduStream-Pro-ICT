@@ -4,7 +4,7 @@
 Nexus Global (EduStream Pro ICT) is a high-performance, multi-language student management system specifically engineered for South African ICT education. It combines premium glassmorphism design with real-time analytics powered by Python (Machine Learning) and R (Advanced Statistics).
 
 ## 🚀 Live Portal
-**[View Live Demo](https://edustream-pro-jnz09qupo-koketsos-projects.vercel.app)** *(Deployed on Vercel)*
+**[View Live Demo](https://edustream-pro-ftl3eyfhr-koketsos-projects.vercel.app)** *(Deployed on Vercel)*
 
 ![Mobile Friendly](https://img.shields.io/badge/Mobile-Friendly-success?style=for-the-badge&logo=android)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-blue?style=for-the-badge)
