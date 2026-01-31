@@ -10,7 +10,7 @@
 
 | Resource | URL |
 |----------|-----|
-| **Live Demo** | [https://edustream-pro-jnz09qupo-koketsos-projects.vercel.app](https://edustream-pro-jnz09qupo-koketsos-projects.vercel.app) |
+| **Live Demo** | [https://edustream-pro-ma3dq1bc4-koketso-raphashas-projects.vercel.app](https://edustream-pro-ma3dq1bc4-koketso-raphashas-projects.vercel.app) |
 | **GitHub Repository** | [https://github.com/Raphasha27/EduStream-Pro-ICT](https://github.com/Raphasha27/EduStream-Pro-ICT) |
 | **Documentation** | [README.md](./README.md) |
 | **Deployment Guide** | [DEPLOYMENT.md](./DEPLOYMENT.md) |
