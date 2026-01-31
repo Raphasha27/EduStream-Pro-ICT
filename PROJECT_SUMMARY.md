@@ -213,4 +213,4 @@ The application showcases advanced React patterns, premium UI design, AI integra
 
 ---
 
-**Built with ❤️ by Raphasha27 © 2026 Nexus Global Institute of Technology**
+**Built by Raphasha27 © 2026 Nexus Global Institute of Technology**
