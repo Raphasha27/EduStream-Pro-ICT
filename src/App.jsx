@@ -50,7 +50,10 @@ const SafeIcon = ({ icon: Icon, size = 16, color }) => {
 const App = () => {
   const [activePage, setActivePage] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [selectedStudentId, setSelectedStudentId] = useState(1);
+  const [prediction, setPrediction] = useState(null);
   const [students, setStudents] = useState([]);
+  const [challenges, setChallenges] = useState([]);
   const [stats, setStats] = useState([
     { label: 'Total Students', value: '...', icon: Users, color: '#1d4ed8' },
     { label: 'Active Courses', value: '...', icon: BookOpen, color: '#b45309' },
@@ -59,21 +62,33 @@ const App = () => {
   ]);
 
   useEffect(() => {
+    const fetchPrediction = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/predict/${selectedStudentId}`);
+        const data = await res.json();
+        setPrediction(data);
+      } catch (err) {
+        console.error('Prediction fetch error:', err);
+      }
+    };
+    if (selectedStudentId) fetchPrediction();
+  }, [selectedStudentId]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const studentsRes = await fetch('http://localhost:5000/api/students');
         const studentsData = await studentsRes.json();
-        setStudents(studentsData.length > 0 ? studentsData : [
-          { id: 1, name: 'Alice Johnson', major: 'Computer Science', status: 'Enrolled', year: 'Year 2' },
-          { id: 2, name: 'Bob Smith', major: 'ICT Engineering', status: 'Enrolled', year: 'Year 3' },
-          { id: 3, name: 'Catherine Lee', major: 'Cyber Security', status: 'Pending', year: 'Year 1' },
-          { id: 4, name: 'David Miller', major: 'Data Science', status: 'Enrolled', year: 'Year 4' },
-        ]);
+        setStudents(studentsData);
 
         const statsRes = await fetch('http://localhost:5000/api/stats');
         const statsData = await statsRes.json();
         const iconMap = { Users, BookOpen, Globe, Award };
         setStats(statsData.map(s => ({ ...s, icon: iconMap[s.icon] || Users })));
+
+        const challengeRes = await fetch('http://localhost:5000/api/challenges');
+        const challengeData = await challengeRes.json();
+        setChallenges(challengeData);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -275,7 +290,7 @@ const App = () => {
                             </span>
                           </td>
                           <td style={{ padding: '16px' }}>
-                            <button className="btn btn-sm" onClick={() => setActivePage('resources')}>View File</button>
+                            <button className="btn btn-sm" onClick={() => { setSelectedStudentId(student.id); setActivePage('predictor'); }}>Analyze Success</button>
                           </td>
                         </tr>
                       ))}
@@ -311,23 +326,66 @@ const App = () => {
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>AI-powered analysis of student academic risk using Python ML.</p>
             </div>
             <div className="card" style={{ padding: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#166534', fontSize: '24px', fontWeight: 800 }}>85%</div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '18px' }}>Low Risk Score</div>
-                  <div style={{ color: 'var(--color-fg-muted)' }}>Based on attendance (92%) and assignment velocity.</div>
-                </div>
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ fontSize: '12px', fontWeight: 700, color: 'var(--color-fg-muted)', display: 'block', marginBottom: '8px' }}>SELECT STUDENT</label>
+                <select 
+                  className="form-control" 
+                  value={selectedStudentId} 
+                  onChange={(e) => setSelectedStudentId(parseInt(e.target.value))}
+                  style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid var(--color-border-default)' }}
+                >
+                  {students.map(s => (
+                    <option key={s.id} value={s.id}>{s.name} ({s.major})</option>
+                  ))}
+                </select>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div style={{ padding: '16px', background: 'var(--color-canvas-subtle)', borderRadius: '8px' }}>
-                  <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>ATTENDANCE</div>
-                  <div style={{ fontSize: '18px', fontWeight: 700 }}>92% Excellent</div>
-                </div>
-                <div style={{ padding: '16px', background: 'var(--color-canvas-subtle)', borderRadius: '8px' }}>
-                  <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>SPEED</div>
-                  <div style={{ fontSize: '18px', fontWeight: 700 }}>Fast Completion</div>
-                </div>
-              </div>
+
+              {prediction && (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                    <div style={{ 
+                      width: '80px', 
+                      height: '80px', 
+                      borderRadius: '50%', 
+                      background: prediction.risk === 'Low' ? '#dcfce7' : prediction.risk === 'Medium' ? '#fef9c3' : '#fee2e2', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      color: prediction.risk === 'Low' ? '#166534' : prediction.risk === 'Medium' ? '#854d0e' : '#991b1b', 
+                      fontSize: '24px', 
+                      fontWeight: 800 
+                    }}>
+                      {prediction.score}%
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: '18px' }}>{prediction.risk} Risk Assessment</div>
+                      <div style={{ color: 'var(--color-fg-muted)' }}>AI Confidence based on Nexus institutional data streams.</div>
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div style={{ padding: '16px', background: 'var(--color-canvas-subtle)', borderRadius: '8px' }}>
+                      <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>ATTENDANCE RATE</div>
+                      <div style={{ fontSize: '18px', fontWeight: 700 }}>{prediction.factors.attendance}%</div>
+                    </div>
+                    <div style={{ padding: '16px', background: 'var(--color-canvas-subtle)', borderRadius: '8px' }}>
+                      <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>ACADEMIC PERFORMANCE</div>
+                      <div style={{ fontSize: '18px', fontWeight: 700 }}>{prediction.factors.academic}% Avg.</div>
+                    </div>
+                    <div style={{ padding: '16px', background: 'var(--color-canvas-subtle)', borderRadius: '12px', gridColumn: 'span 2', border: '1px solid var(--color-academic-gold)', backgroundColor: 'rgba(180, 83, 9, 0.05)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>SUBMISSION SPEED</div>
+                          <div style={{ fontSize: '16px', fontWeight: 700 }}>{prediction.factors.speed}% Optimized</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ fontSize: '11px', color: 'var(--color-academic-gold)', fontWeight: 800 }}>AI RECOMMENDATION</div>
+                          <div style={{ fontSize: '13px', fontWeight: 600 }}>{prediction.insights}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </>
         )}
@@ -338,11 +396,20 @@ const App = () => {
               <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>ICT Skills Challenge</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Gamified daily quizzes on South African ICT landscape and cloud tech.</p>
             </div>
-            <div className="card" style={{ padding: '32px', textAlign: 'center' }}>
-              <Trophy size={64} color="var(--color-academic-gold)" style={{ marginBottom: '16px' }} />
-              <h2 style={{ fontSize: '24px', fontWeight: 800, marginBottom: '8px' }}>Daily Challenge: Cloud Architecture</h2>
-              <p style={{ color: 'var(--color-fg-muted)', marginBottom: '24px' }}>10 Questions • 500 XP Points • Global Leaderboard</p>
-              <button className="btn btn-primary" style={{ padding: '8px 32px' }}>Start Challenge</button>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+              {challenges.map((challenge) => (
+                <div key={challenge.id} className="card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                  <div style={{ marginBottom: '16px' }}>
+                    <span style={{ padding: '4px 8px', background: 'var(--color-academic-gold)', color: 'white', borderRadius: '4px', fontSize: '10px', fontWeight: 800, textTransform: 'uppercase' }}>{challenge.category}</span>
+                  </div>
+                  <h2 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px' }}>{challenge.title}</h2>
+                  <p style={{ color: 'var(--color-fg-muted)', fontSize: '14px', marginBottom: '24px', flex: 1 }}>{challenge.description}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
+                    <div style={{ fontWeight: 800, color: 'var(--color-academic-gold)' }}>{challenge.xp} XP</div>
+                    <button className="btn btn-primary">Start Task</button>
+                  </div>
+                </div>
+              ))}
             </div>
           </>
         )}
