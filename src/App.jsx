@@ -287,13 +287,13 @@ const App = () => {
               ))}
             </div>
 
-            <div className="card" style={{ background: 'var(--color-academic-navy)', color: 'white', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+            <div className="card" style={{ background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', border: '1px solid #bae6fd', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
               <div>
                 <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-academic-gold)', textTransform: 'uppercase', marginBottom: '4px' }}>NEXT LECTURE IN 45 MINS</div>
-                <div style={{ fontSize: '20px', fontWeight: 800 }}>Advanced Cloud Architecture (CSC301)</div>
-                <div style={{ fontSize: '14px', color: '#94a3b8' }}>Hall B-102 • Dr. S. Mandela</div>
+                <div style={{ fontSize: '20px', fontWeight: 800, color: '#000000' }}>Advanced Cloud Architecture (CSC301)</div>
+                <div style={{ fontSize: '14px', color: '#1a1a1a', fontWeight: 600 }}>Hall B-102 • Dr. S. Mandela</div>
               </div>
-              <button className="btn btn-primary" style={{ background: 'white', color: 'var(--color-academic-navy)', border: 'none' }}>View Joining Link</button>
+              <button className="btn btn-primary" style={{ background: 'var(--color-academic-navy)', color: 'white', border: 'none' }}>View Joining Link</button>
             </div>
 
             <section style={{ marginBottom: '24px' }}>
