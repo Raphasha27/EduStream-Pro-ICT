@@ -167,7 +167,7 @@ const App = () => {
 
       <aside className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
         <div 
-          style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '40px', padding: '0 8px', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', padding: '0 8px', cursor: 'pointer' }}
           onClick={() => { setActivePage('dashboard'); setIsMobileMenuOpen(false); }}
         >
           <div style={{ padding: '8px', background: 'var(--color-academic-gold)', borderRadius: '8px', color: 'white' }}>
@@ -268,8 +268,8 @@ const App = () => {
       <main className="main-content">
         {activePage === 'dashboard' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Academic Dashboard</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Academic Dashboard</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Overview of student enrollment and institutional metrics for Nexus Global.</p>
             </div>
 
@@ -287,7 +287,7 @@ const App = () => {
               ))}
             </div>
 
-            <div className="card" style={{ background: 'var(--color-academic-navy)', color: 'white', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+            <div className="card" style={{ background: 'var(--color-academic-navy)', color: 'white', padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
               <div>
                 <div style={{ fontSize: '12px', fontWeight: 800, color: 'var(--color-academic-gold)', textTransform: 'uppercase', marginBottom: '4px' }}>NEXT LECTURE IN 45 MINS</div>
                 <div style={{ fontSize: '20px', fontWeight: 800 }}>Advanced Cloud Architecture (CSC301)</div>
@@ -296,7 +296,7 @@ const App = () => {
               <button className="btn btn-primary" style={{ background: 'white', color: 'var(--color-academic-navy)', border: 'none' }}>View Joining Link</button>
             </div>
 
-            <section style={{ marginBottom: '40px' }}>
+            <section style={{ marginBottom: '24px' }}>
               <div className="card-header" style={{ background: 'transparent', border: 'none', padding: '0 0 20px 0' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span className="section-title">Recent Enrollments</span>
@@ -352,8 +352,8 @@ const App = () => {
 
         {activePage === 'fees' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Fees Tracking</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Fees Tracking</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Real-time tuition balance monitoring and financial status.</p>
             </div>
             <div className="card" style={{ padding: '32px', textAlign: 'center', marginBottom: '32px' }}>
@@ -410,8 +410,8 @@ const App = () => {
 
         {activePage === 'predictor' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Success Predictor</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Success Predictor</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>AI-powered analysis of student academic risk using Python ML.</p>
             </div>
             <div className="card" style={{ padding: '24px' }}>
@@ -481,8 +481,8 @@ const App = () => {
 
         {activePage === 'skills' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>ICT Skills Challenge</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>ICT Skills Challenge</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Gamified daily quizzes on South African ICT landscape and cloud tech.</p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
@@ -505,48 +505,45 @@ const App = () => {
 
         {activePage === 'bookings' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Lab Bookings</h1>
-              <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Reserve workstation time in specialized institutional ICT labs.</p>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 6px 0', letterSpacing: '-0.05em' }}>Lab Bookings</h1>
+              <p style={{ color: 'var(--color-fg-muted)', margin: '0 0 20px 0', fontSize: '13px' }}>Reserve workstation time in specialized institutional ICT labs.</p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '32px' }}>
-              <div className="card" style={{ padding: '24px' }}>
-                <h3 className="section-title">Select Laboratory</h3>
+            <div className="card" style={{ padding: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '20px' }}>
                 {['High-Performance Lab 1', 'Cyber Security Cell', 'AI Research Lab'].map((lab, i) => (
                   <div key={i} style={{ 
-                    padding: '16px', 
-                    borderRadius: '8px', 
-                    border: '1px solid var(--color-border-default)', 
-                    marginBottom: '12px',
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    border: '2px solid',
                     cursor: 'pointer',
                     background: i === 0 ? 'var(--color-canvas-subtle)' : 'white',
-                    borderColor: i === 0 ? 'var(--color-academic-gold)' : 'var(--color-border-default)'
+                    borderColor: i === 0 ? 'var(--color-academic-gold)' : 'var(--color-border-default)',
+                    transition: 'all 0.2s'
                   }}>
-                    <div style={{ fontWeight: 700 }}>{lab}</div>
-                    <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)' }}>{10 - i * 2} workstations available</div>
+                    <div style={{ fontWeight: 700, fontSize: '13px', marginBottom: '4px' }}>{lab}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--color-fg-muted)' }}>{10 - i * 2} available</div>
                   </div>
                 ))}
               </div>
-              <div className="card" style={{ padding: '24px' }}>
-                <h3 className="section-title">Available Slots: Today</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-                  {['09:00 - 11:00', '11:00 - 13:00', '14:00 - 16:00', '16:00 - 18:00'].map((slot, i) => (
-                    <button key={i} className={`btn ${i === 1 ? 'btn-primary' : ''}`} style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <span style={{ fontSize: '14px', fontWeight: 700 }}>{slot}</span>
-                      <span style={{ fontSize: '11px', opacity: 0.8 }}>{i % 2 === 0 ? 'Low Demand' : 'High Demand'}</span>
-                    </button>
-                  ))}
-                </div>
-                <button className="btn btn-primary" style={{ width: '100%', marginTop: '32px', height: '48px' }}>Confirm Reservation</button>
+              <h3 style={{ fontSize: '14px', fontWeight: 700, margin: '0 0 12px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Available Slots: Today</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+                {['09:00 - 11:00', '11:00 - 13:00', '14:00 - 16:00', '16:00 - 18:00'].map((slot, i) => (
+                  <button key={i} className={`btn ${i === 1 ? 'btn-primary' : ''}`} style={{ padding: '12px 8px', display: 'flex', flexDirection: 'column', alignItems: 'center', fontSize: '12px' }}>
+                    <span style={{ fontWeight: 700 }}>{slot}</span>
+                    <span style={{ fontSize: '10px', opacity: 0.8, marginTop: '4px' }}>{i % 2 === 0 ? 'Low' : 'High'}</span>
+                  </button>
+                ))}
               </div>
+              <button className="btn btn-primary" style={{ width: '100%', marginTop: '16px', height: '40px', fontSize: '14px' }}>Confirm Reservation</button>
             </div>
           </>
         )}
 
         {activePage === 'navigator' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Campus Navigator</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Campus Navigator</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Visual mapping of lectures halls, high-performance labs, and administrative blocks.</p>
             </div>
             <div className="card" style={{ padding: '0', overflow: 'hidden', position: 'relative', height: '500px', background: '#f8fafc' }}>
@@ -578,8 +575,8 @@ const App = () => {
 
         {activePage === 'international' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>International Research</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>International Research</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Worldwide academic partnerships and cross-border innovation in ICT.</p>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
@@ -607,8 +604,8 @@ const App = () => {
 
         {activePage === 'console' && (
           <>
-            <div style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '32px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>ICT Console</h1>
+            <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>ICT Console</h1>
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Direct institutional command interface for advanced registry queries.</p>
             </div>
             <div style={{ background: '#0d1117', borderRadius: '12px', padding: '20px', fontFamily: '"Fira Code", monospace', color: '#3fb950', height: '400px', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)', overflowY: 'auto' }}>
@@ -669,3 +666,4 @@ const App = () => {
 };
 
 export default App;
+

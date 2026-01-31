@@ -100,8 +100,8 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 40px 60px;
-  max-width: 1080px;
+  padding: 24px 32px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
