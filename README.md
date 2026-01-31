@@ -32,9 +32,42 @@ Interactive campus mapping and live navigation assistance to lecture halls, admi
 
 ## 🛠️ Technological Stack
 - **Frontend**: Vite, React, Lucide Icons, Glassmorphism CSS3.
-- **Protocols**: Institutional Governance Standards & Compliance Rulesets.
-- **Analytics**: Python 3.9 (FastAPI) & R 4.1 (Plumber) compatible.
-- **Deployment**: Optimized for Vercel/Netlify with full mobile responsiveness.
+- **Backend**: Node.js, Express, Sequelize ORM, SQLite Database.
+- **AI Engine**: Custom risk prediction algorithm (Attendance 50%, Academics 30%, Submission Speed 20%).
+- **Deployment**: Optimized for Vercel (Frontend) with full mobile responsiveness.
+
+## 🚀 Quick Start
+
+### Frontend Development
+```bash
+npm install
+npm run dev
+```
+Access at `http://localhost:5173`
+
+### Backend Server
+```bash
+cd server
+npm install
+npm run dev
+```
+Server runs on `http://localhost:5000`
+
+### Production Build
+```bash
+npm run build
+```
+Output: `dist/` folder ready for deployment.
+
+## 📦 Deployment to Vercel
+
+1. **Connect Repository**: Link your GitHub repo to Vercel.
+2. **Build Settings**: 
+   - Framework: Vite
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+3. **Deploy**: Vercel automatically builds and deploys on every push to `master`.
+4. **Backend**: For full-stack functionality, deploy the backend separately (Render, Railway, etc.) and update API endpoints.
 
 ---
 
