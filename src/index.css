@@ -113,7 +113,9 @@ body {
 
 @media (max-width: 768px) {
   .main-content {
-    padding: 80px 16px; /* Space for mobile header */
+    padding: 72px 12px; /* Reduced side padding for better grid fit */
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 

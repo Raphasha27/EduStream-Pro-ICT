@@ -399,12 +399,12 @@ const App = () => {
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Overview of student enrollment and institutional metrics for Nexus Global.</p>
             </div>
 
-            {/* Dashboard Stats Grid - Optimized for Mobile 2x2 Layout */}
+            {/* Dashboard Stats Grid - Forced 2x2 Mobile Layout */}
             <div style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+              gridTemplateColumns: '1fr 1fr', 
               gap: '12px', 
-              marginBottom: '24px' 
+              marginBottom: '20px' 
             }}>
               {stats.map((stat, i) => (
                 <div key={i} className="card" style={{ padding: '16px', margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
