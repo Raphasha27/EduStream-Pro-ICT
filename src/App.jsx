@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Search,
   CheckCircle2,
@@ -50,19 +50,36 @@ const SafeIcon = ({ icon: Icon, size = 16, color }) => {
 const App = () => {
   const [activePage, setActivePage] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [students, setStudents] = useState([
-    { id: 1, name: 'Alice Johnson', major: 'Computer Science', status: 'Enrolled', year: 'Year 2' },
-    { id: 2, name: 'Bob Smith', major: 'ICT Engineering', status: 'Enrolled', year: 'Year 3' },
-    { id: 3, name: 'Catherine Lee', major: 'Cyber Security', status: 'Pending', year: 'Year 1' },
-    { id: 4, name: 'David Miller', major: 'Data Science', status: 'Enrolled', year: 'Year 4' },
+  const [students, setStudents] = useState([]);
+  const [stats, setStats] = useState([
+    { label: 'Total Students', value: '...', icon: Users, color: '#1d4ed8' },
+    { label: 'Active Courses', value: '...', icon: BookOpen, color: '#b45309' },
+    { label: 'Global Campuses', value: '...', icon: Globe, color: '#15803d' },
+    { label: 'Accreditations', value: '...', icon: Award, color: '#7c3aed' },
   ]);
 
-  const stats = [
-    { label: 'Total Students', value: '1,280', icon: Users, color: '#1d4ed8' },
-    { label: 'Active Courses', value: '84', icon: BookOpen, color: '#b45309' },
-    { label: 'Global Campuses', value: '3', icon: Globe, color: '#15803d' },
-    { label: 'Accreditations', value: '12', icon: Award, color: '#7c3aed' },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const studentsRes = await fetch('http://localhost:5000/api/students');
+        const studentsData = await studentsRes.json();
+        setStudents(studentsData.length > 0 ? studentsData : [
+          { id: 1, name: 'Alice Johnson', major: 'Computer Science', status: 'Enrolled', year: 'Year 2' },
+          { id: 2, name: 'Bob Smith', major: 'ICT Engineering', status: 'Enrolled', year: 'Year 3' },
+          { id: 3, name: 'Catherine Lee', major: 'Cyber Security', status: 'Pending', year: 'Year 1' },
+          { id: 4, name: 'David Miller', major: 'Data Science', status: 'Enrolled', year: 'Year 4' },
+        ]);
+
+        const statsRes = await fetch('http://localhost:5000/api/stats');
+        const statsData = await statsRes.json();
+        const iconMap = { Users, BookOpen, Globe, Award };
+        setStats(statsData.map(s => ({ ...s, icon: iconMap[s.icon] || Users })));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="app-container">
@@ -177,6 +194,12 @@ const App = () => {
               label="ICT Console" 
               active={activePage === 'console'} 
               onClick={() => { setActivePage('console'); setIsMobileMenuOpen(false); }} 
+            />
+            <SidebarItem 
+              icon={Shield} 
+              label="Governance Protocols" 
+              active={activePage === 'governance'} 
+              onClick={() => { setActivePage('governance'); setIsMobileMenuOpen(false); }} 
             />
             <SidebarItem 
               icon={MapPin} 
@@ -325,7 +348,7 @@ const App = () => {
         )}
 
         {/* Fallback for other pages */}
-        {!['dashboard', 'fees', 'predictor', 'skills'].includes(activePage) && (
+        {!['dashboard', 'fees', 'predictor', 'skills', 'governance', 'international'].includes(activePage) && (
           <div style={{ textAlign: 'center', marginTop: '100px' }}>
             <div style={{ padding: '24px', background: '#fef3c7', display: 'inline-block', borderRadius: '50%', color: '#b45309', marginBottom: '16px' }}>
               <Terminal size={48} />
