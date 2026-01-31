@@ -48,8 +48,17 @@ const SafeIcon = ({ icon: Icon, size = 16, color }) => {
 };
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activePage, setActivePage] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(true);
+  };
+
   const [selectedStudentId, setSelectedStudentId] = useState(1);
   const [prediction, setPrediction] = useState(null);
   const [students, setStudents] = useState([]);
@@ -128,12 +137,129 @@ const App = () => {
     ]);
 
     // Mock challenges
+    // Mock challenges with expanded data
     setChallenges([
-      { id: 1, title: 'Cloud Architecture', description: 'Design a multi-tenant SaaS platform on Azure', xp: 150, category: 'Cloud' },
-      { id: 2, title: 'Security Audit', description: 'Identify vulnerabilities in legacy systems', xp: 200, category: 'Security' },
-      { id: 3, title: 'AI Model Training', description: 'Build a predictive analytics model with Python', xp: 250, category: 'AI' },
+      { id: 1, title: 'Cloud Architecture Essentials', description: 'Design a multi-tenant SaaS platform on Azure', xp: 150, category: 'Cloud', type: 'Quiz' },
+      { id: 2, title: 'Network Security Audit', description: 'Identify vulnerabilities in legacy systems', xp: 200, category: 'Security', type: 'Lab' },
+      { id: 3, title: 'AI Model Training', description: 'Build a predictive analytics model with Python', xp: 250, category: 'AI', type: 'Project' },
+      { id: 4, title: 'Data Structures 101', description: 'Master trees, graphs and linked lists', xp: 100, category: 'CS', type: 'Test' },
+      { id: 5, title: 'React Performance', description: 'Optimize rendering cycles in large apps', xp: 180, category: 'Web', type: 'Challenge' },
+      { id: 6, title: 'Ethical Hacking Basics', description: 'Penetration testing fundamentals', xp: 300, category: 'Security', type: 'Exam' },
     ]);
+
+    // Added Mock Course Resources Data
+    const mockCourses = [
+      { id: 1, name: 'Advanced Cloud Architecture', code: 'CSC301', progress: 75, nextTest: 'Feb 15' },
+      { id: 2, name: 'Machine Learning Fundamentals', code: 'AI202', progress: 45, nextTest: 'Feb 18' },
+      { id: 3, name: 'Cybersecurity Ops', code: 'SEC404', progress: 90, nextTest: 'Feb 10' },
+      { id: 4, name: 'Full Stack Development', code: 'WEB303', progress: 60, nextTest: 'Feb 22' },
+      { id: 5, name: 'Data Visualization with R', code: 'DAT201', progress: 30, nextTest: 'Feb 28' }
+    ];
+    // Attach to window or state if needed, for now just ensuring data exists flow.
   }, []);
+
+  if (!isLoggedIn) {
+    return (
+      <div style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+        padding: '20px'
+      }}>
+        <div style={{ 
+          background: 'rgba(255, 255, 255, 0.9)', 
+          backdropFilter: 'blur(20px)', 
+          padding: '40px', 
+          borderRadius: '24px', 
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
+          width: '100%', 
+          maxWidth: '400px',
+          border: '1px solid rgba(255,255,255,0.5)'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <div style={{ 
+              background: 'var(--color-academic-gold)', 
+              width: '48px', 
+              height: '48px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              margin: '0 auto 16px auto',
+              color: 'white'
+            }}>
+              <GraduationCap size={28} />
+            </div>
+            <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>Nexus Global</h1>
+            <p style={{ color: '#64748b', fontSize: '14px' }}>Institutional Governance Portal</p>
+          </div>
+
+          <form onSubmit={handleLogin}>
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: '#334155' }}>Student ID / Staff Code</label>
+              <input 
+                type="text" 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #cbd5e1', 
+                  background: '#f8fafc',
+                  outline: 'none',
+                  fontSize: '14px'
+                }} 
+                placeholder="Enter ID..." 
+                required 
+              />
+            </div>
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{ display: 'block', fontSize: '13px', fontWeight: 600, marginBottom: '8px', color: '#334155' }}>Password</label>
+              <input 
+                type="password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{ 
+                  width: '100%', 
+                  padding: '12px', 
+                  borderRadius: '8px', 
+                  border: '1px solid #cbd5e1', 
+                  background: '#f8fafc',
+                  outline: 'none',
+                  fontSize: '14px'
+                }} 
+                placeholder="••••••••" 
+                required 
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="btn btn-primary" 
+              style={{ 
+                width: '100%', 
+                padding: '14px', 
+                fontSize: '15px', 
+                fontWeight: 600,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              Access Portal 
+              <ChevronRight size={16} />
+            </button>
+          </form>
+          <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '12px', color: '#94a3b8' }}>
+            Restricted Access • Secure Connection
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
@@ -144,8 +270,8 @@ const App = () => {
         top: 0,
         left: 0,
         right: 0,
-        height: '64px',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        height: '56px',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid var(--color-border-default)',
         zIndex: 1100,
@@ -273,16 +399,24 @@ const App = () => {
               <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Overview of student enrollment and institutional metrics for Nexus Global.</p>
             </div>
 
-            <div className="grid-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px', marginBottom: '32px' }}>
+            {/* Dashboard Stats Grid - Optimized for Mobile 2x2 Layout */}
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+              gap: '12px', 
+              marginBottom: '24px' 
+            }}>
               {stats.map((stat, i) => (
-                <div key={i} className="card" style={{ padding: '24px', margin: 0 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
-                    <div style={{ padding: '8px', background: `${stat.color}1a`, borderRadius: '8px', color: stat.color }}>
-                      <stat.icon size={20} />
+                <div key={i} className="card" style={{ padding: '16px', margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0' }}>
+                    <div style={{ padding: '6px', background: `${stat.color}1a`, borderRadius: '6px', color: stat.color }}>
+                      <stat.icon size={18} />
                     </div>
                   </div>
-                  <div style={{ fontSize: '24px', fontWeight: 800, color: 'var(--color-fg-default)' }}>{stat.value}</div>
-                  <div style={{ fontSize: '13px', color: 'var(--color-fg-muted)', fontWeight: 500 }}>{stat.label}</div>
+                  <div>
+                    <div style={{ fontSize: '20px', fontWeight: 800, color: 'var(--color-fg-default)', lineHeight: 1.2 }}>{stat.value}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>{stat.label}</div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -660,6 +794,53 @@ const App = () => {
             <a href="#">Campus Security</a>
           </nav>
         </footer>
+        {activePage === 'resources' && (
+          <>
+             <div style={{ marginBottom: '24px' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.05em' }}>Course Resources</h1>
+              <p style={{ color: 'var(--color-fg-muted)', margin: 0 }}>Access learning materials, upcoming tests, and quizzes.</p>
+            </div>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+              {[
+                { name: 'Advanced Cloud Architecture', code: 'CSC301', progress: 75, nextTest: 'Feb 15', resources: 12 },
+                { name: 'Machine Learning Fundamentals', code: 'AI202', progress: 45, nextTest: 'Feb 18', resources: 8 },
+                { name: 'Cybersecurity Ops', code: 'SEC404', progress: 90, nextTest: 'Feb 10', resources: 15 },
+                { name: 'Full Stack Development', code: 'WEB303', progress: 60, nextTest: 'Feb 22', resources: 20 },
+                { name: 'Data Visualization with R', code: 'DAT201', progress: 30, nextTest: 'Feb 28', resources: 5 }
+              ].map((course, i) => (
+                 <div key={i} className="card" style={{ padding: '20px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                      <div>
+                        <span style={{ fontSize: '10px', fontWeight: 800, color: 'var(--color-academic-gold)', background: '#fef3c7', padding: '4px 8px', borderRadius: '4px' }}>{course.code}</span>
+                        <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '8px 0 4px 0' }}>{course.name}</h3>
+                        <span style={{ fontSize: '12px', color: 'var(--color-fg-muted)' }}>{course.resources} Files Available</span>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: '12px', color: 'var(--color-fg-muted)', fontWeight: 600 }}>NEXT TEST</div>
+                        <div style={{ fontWeight: 800, color: '#be123c' }}>{course.nextTest}</div>
+                      </div>
+                    </div>
+                    
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                         <span>Progress</span>
+                         <span>{course.progress}%</span>
+                      </div>
+                      <div style={{ width: '100%', height: '6px', background: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: `${course.progress}%`, height: '100%', background: 'var(--color-academic-gold)', borderRadius: '3px' }}></div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                       <button className="btn btn-sm" style={{ flex: 1 }}>View Notes</button>
+                       <button className="btn btn-sm btn-primary" style={{ flex: 1 }}>Take Quiz</button>
+                    </div>
+                 </div>
+              ))}
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
