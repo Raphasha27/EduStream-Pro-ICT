@@ -61,39 +61,78 @@ const App = () => {
     { label: 'Accreditations', value: '...', icon: Award, color: '#7c3aed' },
   ]);
 
+  // Mock AI Predictions
   useEffect(() => {
-    const fetchPrediction = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/predict/${selectedStudentId}`);
-        const data = await res.json();
-        setPrediction(data);
-      } catch (err) {
-        console.error('Prediction fetch error:', err);
+    const mockPredictions = {
+      1: {
+        student: 'Koketso Raphasha',
+        riskScore: 78,
+        riskLevel: 'Low',
+        factors: [
+          { name: 'Attendance Rate', score: 92, weight: 50, icon: 'CheckCircle2' },
+          { name: 'Academic Performance', score: 85, weight: 30, icon: 'Brain' },
+          { name: 'Assignment Submission Speed', score: 48, weight: 20, icon: 'Clock' }
+        ]
+      },
+      2: {
+        student: 'Thabo Mokoena',
+        riskScore: 65,
+        riskLevel: 'Medium',
+        factors: [
+          { name: 'Attendance Rate', score: 78, weight: 50, icon: 'CheckCircle2' },
+          { name: 'Academic Performance', score: 68, weight: 30, icon: 'Brain' },
+          { name: 'Assignment Submission Speed', score: 42, weight: 20, icon: 'Clock' }
+        ]
+      },
+      3: {
+        student: 'Naledi Khumalo',
+        riskScore: 45,
+        riskLevel: 'High',
+        factors: [
+          { name: 'Attendance Rate', score: 55, weight: 50, icon: 'CheckCircle2' },
+          { name: 'Academic Performance', score: 48, weight: 30, icon: 'Brain' },
+          { name: 'Assignment Submission Speed', score: 28, weight: 20, icon: 'Clock' }
+        ]
+      },
+      4: {
+        student: 'Sipho Ndlovu',
+        riskScore: 88,
+        riskLevel: 'Low',
+        factors: [
+          { name: 'Attendance Rate', score: 95, weight: 50, icon: 'CheckCircle2' },
+          { name: 'Academic Performance', score: 92, weight: 30, icon: 'Brain' },
+          { name: 'Assignment Submission Speed', score: 72, weight: 20, icon: 'Clock' }
+        ]
       }
     };
-    if (selectedStudentId) fetchPrediction();
+    setPrediction(mockPredictions[selectedStudentId] || mockPredictions[1]);
   }, [selectedStudentId]);
 
+  // Initialize all mock data
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const studentsRes = await fetch('http://localhost:5000/api/students');
-        const studentsData = await studentsRes.json();
-        setStudents(studentsData);
+    // Mock students
+    setStudents([
+      { id: 1, name: 'Koketso Raphasha', course: 'AI Engineering', department: 'Computer Science', status: 'Active' },
+      { id: 2, name: 'Thabo Mokoena', course: 'Data Science', department: 'Analytics', status: 'Active' },
+      { id: 3, name: 'Naledi Khumalo', course: 'Cloud Architecture', department: 'Infrastructure', status: 'Audit' },
+      { id: 4, name: 'Sipho Ndlovu', course: 'Cybersecurity', department: 'Security', status: 'Active' },
+      { id: 5, name: 'Lerato Dlamini', course: 'Software Engineering', department: 'Computer Science', status: 'Active' },
+    ]);
 
-        const statsRes = await fetch('http://localhost:5000/api/stats');
-        const statsData = await statsRes.json();
-        const iconMap = { Users, BookOpen, Globe, Award };
-        setStats(statsData.map(s => ({ ...s, icon: iconMap[s.icon] || Users })));
+    // Mock stats
+    setStats([
+      { label: 'Total Students', value: '2,847', icon: Users, color: '#1d4ed8' },
+      { label: 'Active Courses', value: '156', icon: BookOpen, color: '#b45309' },
+      { label: 'Global Campuses', value: '12', icon: Globe, color: '#15803d' },
+      { label: 'Accreditations', value: '8', icon: Award, color: '#7c3aed' },
+    ]);
 
-        const challengeRes = await fetch('http://localhost:5000/api/challenges');
-        const challengeData = await challengeRes.json();
-        setChallenges(challengeData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
+    // Mock challenges
+    setChallenges([
+      { id: 1, title: 'Cloud Architecture', description: 'Design a multi-tenant SaaS platform on Azure', xp: 150, category: 'Cloud' },
+      { id: 2, title: 'Security Audit', description: 'Identify vulnerabilities in legacy systems', xp: 200, category: 'Security' },
+      { id: 3, title: 'AI Model Training', description: 'Build a predictive analytics model with Python', xp: 250, category: 'AI' },
+    ]);
   }, []);
 
   return (
