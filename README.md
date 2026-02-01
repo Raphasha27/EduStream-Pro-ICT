@@ -5,7 +5,7 @@ Nexus Global (EduStream Pro ICT) is a high-performance, multi-language student m
 
 ## 🚀 Live Portal
 **[👉 Click Here to View Live 
-https://edustream-pro-ict.vercel.app/
+https://edustream-pro-ict.vercel.app
 ![Mobile Friendly](https://img.shields.io/badge/Mobile-Friendly-success?style=for-the-badge&logo=android)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-blue?style=for-the-badge)
 
